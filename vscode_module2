@@ -1,0 +1,58 @@
+Sub abc_test()
+Dim Ticker As String
+
+Dim Yearly_Change As Double
+    Yearly_Change = 0
+    
+Dim Percent_Change As Double
+    Percent_Change = 0
+    
+Dim Total_Stock_Volume As Double
+    Total_Stock_Volume = 0
+    
+Dim Table_Row As Integer
+    Table_Row = 2
+    
+
+For i = 2 To 22771
+
+    If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+        Ticker = Cells(i, 1).Value
+        
+        'do yearly change as closing - opening***
+        'percent change will be (closing - opening)/ opening
+        Yearly_Change = Yearly_Change + (Cells(i, 6).Value - Cells(i, 3).Value)
+        Total_Stock_Volume = Total_Stock_Volume + Cells(i, 7).Value
+        Percent_Change = (Cells(i, 6).Value - Cells(i, 3).Value) / Cells(i, 3).Value
+        
+        Range("I" & Table_Row).Value = Ticker
+        Range("J" & Table_Row).Value = Yearly_Change
+        Range("L" & Table_Row).Value = Total_Stock_Volume
+        Range("K" & Table_Row).Value = Percent_Change
+        
+        Table_Row = Table_Row + 1
+        
+        
+    Else
+        Yearly_Change = Yearly_Change + (Cells(i, 6).Value - Cells(i, 3).Value)
+        Total_Stock_Volume = Total_Stock_Volume + Cells(i, 7).Value
+        Percent_Change = (Cells(i, 6).Value - Cells(i, 3).Value) / Cells(i, 3).Value
+
+End If
+    
+Next i
+
+For i = 2 To 22771
+
+    If Cells(i, 10).Value > 0 Then
+        Cells(i, 10).Interior.ColorIndex = 4
+        
+    ElseIf Cells(i, 10).Value < 0 Then
+        Cells(i, 10).Interior.ColorIndex = 3
+    
+
+End If
+
+Next i
+
+End Sub
